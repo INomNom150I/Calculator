@@ -5,11 +5,11 @@
 using namespace std;
 
 struct point{
-	int x,y; 
-	point(int x = 0, int y = 0): x(x),y(y) {};
-	bool operator < (const point &o) const{
-		return x < o.x;
-	}
+    int x,y; 
+    point(int x = 0, int y = 0): x(x),y(y) {};
+    bool operator < (const point &o) const{
+        return x < o.x;
+    }
 };
 
 std::ostream& operator<< (std::ostream &out, const point &p){
@@ -20,7 +20,7 @@ std::ostream& operator<< (std::ostream &out, const point &p){
 point p0;
 
 int ccw(point &a,point &b,point &c){
-	return (c.y-b.y)*(b.x-a.x) - (b.y-a.y) * (c.x-b.x);  
+    return (c.y-b.y)*(b.x-a.x) - (b.y-a.y) * (c.x-b.x);  
 }
 
 double dist(point &a, point &b){

@@ -5,15 +5,15 @@
 using namespace std;
 
 struct point{
-	int x,y;
-	point(int x, int y): x(x),y(y) {}
-	bool operator < (const point &o) const{
-		return x < o.x;
-	}
+    int x,y;
+    point(int x, int y): x(x),y(y) {}
+    bool operator < (const point &o) const{
+        return x < o.x;
+    }
 };
 
 int ccw(point &a, point &b, point &c){
-	return (c.y-b.y)*(b.x-a.x) - (b.y-a.y) * (c.x-b.x);  
+    return (c.y-b.y)*(b.x-a.x) - (b.y-a.y) * (c.x-b.x);  
 }
 
 std::vector<point> convex(std::vector<point> &v){
