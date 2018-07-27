@@ -127,7 +127,6 @@ void inorder(node* root){
         if(cur->left == nullptr){
             std::cout << cur->key << ' '; 
             cur = cur->right;
-
         } 
         else{
             node* n = cur->left;
@@ -177,6 +176,7 @@ void preorder3(node* root){
             cur = cur->right;
         } else{
             node* n = cur->left;
+            std::cout << "current: "<< cur->key << std::endl;
             while(n->right && n->right != cur){
                 n = n->right;
             }
@@ -189,7 +189,7 @@ void preorder3(node* root){
                 cur = cur->left;
             }
         }
-   }
+    }    
 }
 
 void postorder(node* root){
@@ -303,5 +303,16 @@ int main(){
     std::cout << "\n------\npostorder2\n";
     postorder2(root);
     std::cout << "\n------\n";
+
+    std::cout << "\n---------\n";
+    std::cout << "\n---------\n";
+    node* root1 = nullptr;
+    root1 = insert(root1,9);
+    root1 = insert(root1,10);
+    root1 = insert(root1,15);
+    root1 = insert(root1,17);
+    root1 = insert(root1,16);
+    preorder3(root1);
+    std::cout << "\n---------\n";
     return 0;
 }
