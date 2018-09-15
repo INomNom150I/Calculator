@@ -78,16 +78,35 @@ void helper(char *program){
     cout << "4-perm no order\n";
 }
 
+void perm(int a[], int i, int n){
+    static int num = 0;
+    if(i == n){
+        cout << num++ << "\t";
+        for(int i = 0; i < n; i++){
+             cout << a[i++] << ',';
+             cout << a[i] << ' ';
+        }
+        cout << endl;
+        return;
+    }
+    for(int j = i+1; j < n; j++){
+        swap(a[j], a[i+1]);
+        perm(a,i+2,n);
+        swap(a[j], a[i+1]);
+    }
+}
+
 int main(int argc, char *argv[], char *argp[]){
     //for(int i = 0; argp[i]; i++) cout << argp[i] << endl;
-    int testc = 2;
+    int testc = 5, n = 4;
     string b, s ="1234";
 #if 1
     char c;
-    while((c = getopt(argc,argv,"c:h")) != -1){
+    while((c = getopt(argc,argv,"c:hn:")) != -1){
         switch(c){
             case 'h': helper(argv[0]); break;
             case 'c': testc = atoi(optarg); break;
+            case 'n': n = atoi(optarg); n>>=1;n<<=1;break;
             default: cout << "invalid option " << c << endl;
         }
     }
@@ -125,6 +144,15 @@ int main(int argc, char *argv[], char *argp[]){
         case 3: perm(st,b);
                 break;
         case 4: perm(s,0);
+                break;
+        case 5: 
+                {
+                int a[n];
+                   for(int i = 0; i < n; i++){
+                    a[i] = i;
+                    }
+                perm(a,0,n);
+                }
                 break;
         default: cout << "no case\n";
     }
