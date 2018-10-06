@@ -17,12 +17,14 @@ void heapfy(int arr[], int i, int size){
 }
 
 void heapsort(int arr[], int size){
-    while(size){
-        for(int i = (size-2)/2; i >= 0; i--){
-            heapfy(arr,i,size);
-        }
-        std::swap(arr[0], arr[size-1]); 
+    for(int i = (size-2)/2; i >= 0; i--){
+        heapfy(arr,i,size);
+    }
+
+    while(size > 1){
         size--;
+        std::swap(arr[0], arr[size]); 
+        heapfy(arr,0,size);
     }   
 }
 
