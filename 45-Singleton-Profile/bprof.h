@@ -11,6 +11,13 @@
     long diff = (t2-t1)*1000000/CLOCKS_PER_SEC;\
     cout <<"time:\t" <<diff << endl;
 
+#define PROFILING(x)\
+    do{\
+        profile_start(); \
+        x; \
+        profile_stop(); \
+    }while(0)
+
 #define PROFILE(x)\
     do{\
         clock_t t1, t2;\
@@ -42,11 +49,11 @@ class singleton{
     int times;
 };
 
-void profile_start(){
+static inline void profile_start(){
     singleton::get().profile_start();
 }
 
-void profile_stop(){
+static inline void profile_stop(){
     singleton::get().profile_stop();
 }
 
