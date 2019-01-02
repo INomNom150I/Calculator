@@ -36,6 +36,7 @@ void dijkstra(int src){
         n = q.top();
         int u = n.id;
         q.pop();
+        if(visited[n.id]) continue;
         std::cout << u << std::endl;
         visited[n.id] = 1;
         for(int j = 0; j < N; j++){
@@ -61,9 +62,9 @@ void warshall(){
         }
     }
 
+    for(int k = 0; k < N; k++){
         for(int i = 0; i < N; i++){
             for(int j = 0; j < N; j++){
-    for(int k = 0; k < N; k++){
                 if((d[i][k] + d[k][j]) < d[i][j]) d[i][j] = d[i][k] + d[k][j];
             }
         }
