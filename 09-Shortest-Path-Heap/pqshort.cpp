@@ -34,11 +34,11 @@ void dijkstra(int src){
 
     while(!q.empty()){
         n = q.top();
-        int u = n.id;
         q.pop();
-        if(visited[n.id]) continue;
+        int u = n.id;
+        if(visited[u]) continue;
         std::cout << u << std::endl;
-        visited[n.id] = 1;
+        visited[u] = 1;
         for(int j = 0; j < N; j++){
             if(!visited[j] && adj[u][j] > 0 && dist[u]+adj[u][j] < dist[j]){
                 dist[j] = dist[u]+adj[u][j];
@@ -47,6 +47,7 @@ void dijkstra(int src){
         }
     }
 
+    std::cout << "Dijkstra Shortest" << std::endl;
     for(int i = 0; i < N; i++){
         std::cout << i << ' ' << dist[i] << std::endl;
     }
@@ -58,7 +59,7 @@ void warshall(){
         for(int j = 0; j < N; j++){
             if(i == j) d[i][j] = 0;
             else if(adj[i][j] > 0) d[i][j] = adj[i][j];
-                 else d[i][j] = INF;
+            else d[i][j] = INF;
         }
     }
 
@@ -69,6 +70,7 @@ void warshall(){
             }
         }
     }
+    std::cout << "Warshall" << std::endl;
 
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
@@ -78,6 +80,29 @@ void warshall(){
         std::cout << std::endl;
     }
     std::cout << std::endl; 
+}
+
+void bellman(){
+    int dist[N];
+    for(int i = 0; i < N; i++){
+        dist[i] = INF;
+    }
+    dist[0] = 0;
+
+    for(int k = 1; k < N; k++){
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < N; j++){
+                if(adj[i][j] > 0 && dist[i] != INF){
+                    dist[j] = min(dist[j],dist[i]+adj[i][j]);
+                }
+            }
+        }
+    }
+
+    std::cout << "Bellman Shortest" << std::endl;
+    for(int i = 0; i < N; i++){
+        std::cout << i << ' ' << dist[i] << std::endl;
+    }
 }
 
 void print(){
@@ -109,6 +134,7 @@ int main(){
 
     print();    
     dijkstra(0);
+    bellman();
     warshall();
     return 0;
 }
