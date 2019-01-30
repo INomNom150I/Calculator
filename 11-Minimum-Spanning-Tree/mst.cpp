@@ -37,6 +37,12 @@ class graph{
     std::list<node> *adj;
 };
 
+void print(){
+    for(int i = 0; i < mst.size(); i++){
+        std::cout << mst[i].src << ' ' << mst[i].dst << ' '<< mst[i].weight << '\n'; 
+    }
+
+}
 void prim(graph &g){
     bool visited[g.size()];
     memset(visited,0,sizeof(visited));
@@ -63,12 +69,6 @@ void prim(graph &g){
     }
 }
 
-void print(){
-    for(int i = 0; i < mst.size(); i++){
-        std::cout << mst[i].src << ' ' << mst[i].dst << ' '<< mst[i].weight << '\n'; 
-    }
-}
-
 int main(){
     graph g(9);
     g.add_edge(0,1,4);
@@ -85,6 +85,7 @@ int main(){
     g.add_edge(3,5,14);
     g.add_edge(3,4,9);
     g.add_edge(5,4,10);
-
+    prim(g);
+    print();
     return 0;
 }
