@@ -2,7 +2,7 @@
 using namespace std;
 
 int N;
-int seg[100],ms;
+int seg[100],lazy[100],ms;
 int ar[] = {1, 3, 5, 7, 9, 11};
 
 int build(int s, int e, int i){
@@ -20,10 +20,18 @@ void build(){
 }
 
 int query(int s, int e,int i,int l, int r){
+    if(e < l || s > r) return 0;
+    if(lazy[i] > 0){
+        seg[i] += (e-s+1) * lazy[i];
+        if(s != e){
+            lazy[2*i+1] += lazy[i];
+            lazy[2*i+2] += lazy[i];
+        }
+        lazy[i] = 0;
+    }
     if(s >= l && e <= r){
         return seg[i];
     }
-    if(e < l || s > r) return 0;
     int mid = (s+e)/2;
     return query(s,mid,2*i+1,l,r) + query(mid+1,e,2*i+2,l,r);
 }
@@ -32,29 +40,34 @@ int query(int l, int r){
     return query(0,N-1,0,l,r);
 }
 
-void update(int s, int e, int i, int k, int d){
-#if 0
-    if(s <= k && e >= k){
-        seg[i] += d;
-        if(s == e) return;
-        int mid = (s+e)/2;
-        update(s,mid,2*i+1,k,d);
-        update(mid+1,e,2*i+2,k,d);
+void update(int s, int e, int i, int l, int r, int d){
+//    cout << s << ' ' <<e << endl;
+    cout << s << ' ' << e << ' ' << i << endl;
+    if(e < l || s > r || e < s) return;
+    if(lazy[i] > 0){
+        seg[i] += (e-s+1) * lazy[i];
+        if(s != e){
+            lazy[2*i + 1] += lazy[i]; 
+            lazy[2*i + 2] += lazy[i]; 
+        }
+        lazy[i] = 0;
     }
-#else
-    seg[i] += d;
-    if(s == e) return;
+    if(s >= l && e <= r){
+        seg[i] += (e-s+1) * d;
+        if(s != e){
+            lazy[2*i+1] += d;
+            lazy[2*i+2] += d;
+        }
+        return;
+    }
     int mid = (s+e)/2;
-    if(k > mid){
-        update(mid+1,e,2*i+2,k,d);
-    } else{
-        update(s,mid,2*i+1,k,d);
-    }
-#endif
+    update(s,mid,2*i+1,l,r,d);
+    update(mid+1,e,2*i+2,l,r,d);
+    seg[i] = seg[2*i+1] + seg[2*i + 2];
 }
 
-void update(int k, int d){
-    update(0,N-1,0,k,d);
+void update(int l, int r, int d){
+    update(0,N-1,0,l,r,d);
 }
 
 void print(){
@@ -82,7 +95,7 @@ int main(){
     build();
     print();
     std::cout << query(1,3) << std::endl;
-    update(1,10);
+    update(0,3,10);
     print();
     std::cout << query(1,3) << std::endl;     
     return 0;

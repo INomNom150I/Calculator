@@ -10,4 +10,12 @@
 
 #### Using RMQ
 
+#### LCA for general or n-ary trees (Sparse Matrix DP approach < O(nlogn), O(logn)>)
+
+#### LCA in Directed Acyclic Graphs
+
 #### Kth Ancestor in Binary Tree (not common but for one node)
+
+#### Tarjan's off-line LCA using union-find
+
+    offline algorithm vs online algorithm
