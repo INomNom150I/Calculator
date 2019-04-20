@@ -1,60 +1,60 @@
 #include <iostream>
 #include <queue>
+#include <list>
 using namespace std;
 
 #define MAXN 100
 #define NIL 0
 #define INF 9999
 int U, V;
-int adj[MAXN][MAXN];
+list<int> adj[MAXN];
 int pairU[MAXN];
 int pairV[MAXN];
-int dist[MAXN];
+int level[MAXN];
 
 void addEdge(int u, int v){
-    adj[u][v] = 1;
+    adj[u].push_back(v);
 }
 
 bool bfs(){
-    std::queue<int> q;
+    queue<int> q;
     for(int u = 1; u <= U; u++){
         if(pairU[u] == 0){
-            dist[u] = 0;
+            level[u] = 0;
             q.push(u);
+        } else{
+            level[u] = INF;
         }
-        else dist[u] = INF;
     }
-    dist[NIL] = INF;
+    level[0] = INF;
+    
     while(!q.empty()){
         int u = q.front();
         q.pop();
 
-        if(dist[u] < dist[NIL]){
-            for(int v = 1; v <= V; v++){
-                if(adj[u][v] == 1){
-                    if(dist[pairV[v]] == INF){
-                        dist[pairV[v]] = dist[u] + 1;
-                        q.push(pairV[v]);
-                    }
+        if(level[u] < level[0]){
+            for(auto v:adj[u]){
+                if(level[pairV[v]] == INF){
+                    level[pairV[v]] = level[u]+1; 
+                    q.push(pairV[v]);
                 }
             }
         }
     }
-    return dist[NIL] != INF;
+    return level[0] != INF;
 }
 
 bool dfs(int u){
     if(u == 0) return true;
-    for(int v = 1; v <= V; v++){
-        if(adj[u][v] && dist[pairV[v]] == dist[u] + 1){
+    for(int v:adj[u]){
+        if(level[pairV[v]] == level[u]+1){
             if(dfs(pairV[v])){
-                pairV[v] = u;
                 pairU[u] = v;
+                pairV[v] = u;
                 return true;
             }
         }
     }
-    dist[u] = INF;
     return false;
 }
 

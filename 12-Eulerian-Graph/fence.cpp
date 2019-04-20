@@ -1,10 +1,3 @@
-/*
-ID: wzhang11
-TASK: fence
-LANG: C++11
-*/
-
-
 #include <iostream>
 #include <queue>
 #include <fstream>

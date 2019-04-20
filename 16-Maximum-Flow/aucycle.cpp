@@ -54,7 +54,7 @@ class fulk{
             adj[j][parent[j]] += flow;
             j = parent[j];
         }
-
+        cout << "path flow: " << flow << endl;
         return flow;
     }
 
@@ -62,9 +62,7 @@ class fulk{
         int parent[VSIZE];
         int flow = 0;
         while(bfs(s,t,parent)){
-            for(int i = 0; i < VSIZE; i++){
-                flow += augment(s,t,parent);
-            }
+            flow += augment(s,t,parent);
         }
         return flow;
     }
