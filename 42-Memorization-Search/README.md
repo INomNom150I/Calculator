@@ -19,4 +19,7 @@
     Return 4
     The longest increasing path is [1, 2, 6, 9].
 
+## Counting DP
+
+## Bitmask DP
 
