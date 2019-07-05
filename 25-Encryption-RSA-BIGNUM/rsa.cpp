@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 int modp(int b, int p, int n){
     int t = 1;;
@@ -45,6 +46,7 @@ int main(){
 
     for(int i = 100; i < 110; i++){
         int enc = encrypt(i);
+//        cout << i << " is " << enc << endl;
         int dec = decrypt(enc);
         std::cout << i <<" Enc: " << enc << "\tDec: "<< dec << std::endl;
     }
